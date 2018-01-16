@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <script src="js/vue.min.js"></script>
+    <style>
+        .box{width:500px;border:1px solid #e7e7e7;min-height: 400px;margin-top: 100px;}
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <input type="text" placeholder="请输入要生成的div个数" v-model="divCount" @blur="blur">
+        <div class="inputs">
+            <input type="text" v-for="(item,index) in boxs" v-model="item.imgCount" @blur="blurInput(index)">
+        </div>
+
+        <div class="box">
+            <div v-for="item in boxs">
+                <img :src="img.src" alt="" v-for="img in item.imgs">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el:'.wrap',
+            data:{
+                divCount:'',
+                boxs:[],
+            },
+            methods:{
+                blur:function(){
+                    for(var i=0;i<this.divCount;i++){
+                        var data = {imgCount:0,imgs:[]}
+                        this.boxs.push(data)
+                    }
+                },
+                blurInput:function(index){
+                    for(var i=0;i<this.boxs[index].imgCount;i++){
+                        var data = {src:'https://cn.vuejs.org/images/logo.png'}
+                        this.boxs[index].imgs.push(data)
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
